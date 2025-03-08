@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPA Calculator</title>
+    <style>
+        body {
+            text-align: center;
+            margin: 20px;
+        }
+        table {
+            width: 50%;
+            margin: auto;
+            border-spacing: 10px;
+        }
+        th td {
+            border: 1px solid black;
+            padding: 15px;
+            text-align: center;
+        }
+        .cgpab{
+            align-items: center;
+            margin-left: 690px;
+        }
+        
+    </style>
+<head>
+</head>
+<body>
+    <h1>GPA Calculator</h1>
+    <label for="numSubjects" style="font-size: larger;">Enter Number of Subjects: </label>
+    <input type="number" id="numSubjects" min="1" onchange="generateFields()">
+    
+    <table id="coursetable">
+        <tr>
+            <th style="font-size: large;">Course</th>
+            <th style="font-size: large;">Grade</th>
+            <th style="font-size: large;">Credits</th>
+        </tr>
+    </table>
+    
+    <button onclick="calculateGPA()">Calculate GPA</button>
+    <h3 id="result"></h3>
+    
+    <button class="cgpab" id="cgpaButton" style="display: none;" onclick="redirectToCGPA()">Calculate CGPA</button>
+    <script>
+        function generateFields() {
+            let numSubjects = document.getElementById("numSubjects").value;
+            let table = document.getElementById("coursetable");
+            table.innerHTML = `<tr>
+                <th style="font-size: large;">Course</th>
+                <th style="font-size: large;">Grade</th>
+                <th style="font-size: large;">Credits</th>
+            </tr>`;
+            
+            for (let i = 0; i < numSubjects; i++) {
+                let row = table.insertRow(-1);
+                row.innerHTML = `
+                    <td><input type="text" placeholder="Course Name"></td>
+                    <td><input type="text" placeholder="Grade (A, B C...)" class="grade"></td>
+                    <td><input type="number" step="0.1" placeholder="Credits" class="credits"></td>
+                `;
+            }
+        }
+function calculateGPA() {
+            let grades = document.getElementsByClassName("grade");
+            let credits = document.getElementsByClassName("credits");
+            let totalCredits = 0;
+            let totalPoints = 0;
+            let gradeMap = { 'O': 10, 'A+': 9, 'A': 8, 'B+': 7, 'B': 6, 'C': 5 };
+            
+            for (let i = 0; i < grades.length; i++) {
+                let grade = grades[i].value.toUpperCase();
+                let credit = parseFloat(credits[i].value);
+                
+                if (gradeMap[grade] !== undefined && credit > 0) {
+                    totalCredits += credit;
+                    totalPoints += gradeMap[grade] * credit;
+                }
+            }
+            
+            let gpa = totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : "Invalid Input";
+            document.getElementById("result").innerText = "Your GPA: " + gpa;
+            let cgpaButton = document.getElementById("cgpaButton");
+            cgpaButton.style.display = "block";
+        }
+        function redirectToCGPA() {
+            window.location.href = "cgpa.html";
+        }
+    </script>
+</body>
+
+</html>
