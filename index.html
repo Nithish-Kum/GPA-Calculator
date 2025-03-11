@@ -8,24 +8,54 @@
         body {
             text-align: center;
             margin: 20px;
+            font-family: Arial, sans-serif;
         }
         table {
-            width: 50%;
+            width: 90%;
+            max-width: 600px;
             margin: auto;
-            border-spacing: 10px;
+            border-collapse: collapse;
         }
-        th td {
+        th, td {
             border: 1px solid black;
             padding: 15px;
             text-align: center;
         }
-        .cgpab{
-            align-items: center;
-            margin-left: 690px;
+        input {
+            width: 90%;
+            padding: 8px;
+            font-size: 1rem;
         }
-        
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .cgpab {
+            margin-top: 20px;
+            display: block;
+            margin: auto;
+        }
+        @media (max-width: 600px) {
+            table {
+                width: 100%;
+            }
+            input {
+                font-size: 0.9rem;
+            }
+            button {
+                width: 80%;
+            }
+        }
     </style>
-<head>
 </head>
 <body>
     <h1>GPA Calculator</h1>
@@ -63,7 +93,8 @@
                 `;
             }
         }
-function calculateGPA() {
+
+        function calculateGPA() {
             let grades = document.getElementsByClassName("grade");
             let credits = document.getElementsByClassName("credits");
             let totalCredits = 0;
@@ -85,10 +116,10 @@ function calculateGPA() {
             let cgpaButton = document.getElementById("cgpaButton");
             cgpaButton.style.display = "block";
         }
+
         function redirectToCGPA() {
             window.location.href = "cgpa.html";
         }
     </script>
 </body>
-
 </html>
